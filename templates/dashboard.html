@@ -1,0 +1,328 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard | PennyWise{% endblock %}
+
+{% block content %}
+
+<div class="container py-4">
+
+    <!-- Dashboard Heading -->
+
+    <div class="mb-4">
+        <h2 class="fw-bold">My Dashboard</h2>
+        <p class="text-muted">Welcome to your personal finance overview.</p>
+    </div>
+
+    <!-- Financial Summary Cards -->
+
+    <div class="row g-3 mb-4">
+
+        <!-- Income Cards -->
+
+        <div class="col-md-4">
+
+            <div class="card shadow-sm border-0">
+
+                <div class="card-body">
+
+                    <p class="text-muted mb-1">
+                        Total Income
+                    </p>
+
+                    <h3 class="text-success fw-bold">
+                        Ksh{{"%.2f"|format(total_income)}}
+                    </h3>
+
+                </div>
+
+            </div>
+
+        </div>
+    
+        <!-- Expenses Card -->
+
+        <div class="col-md-4">
+
+            <div class="card shadow-sm boarder-0">
+
+                <div class="card-body">
+
+                    <p class="text-muted mb-1">
+                        Total Expenses
+                    </p>
+
+                    <h3 class="text-danger fw-bold">
+                        Ksh{{"%.2f"|format(total_expenses)}}
+                    </h3>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Balance Card -->
+
+        <div class="col-md-4">
+
+            <div class="card shadow-sm boarder-0">
+
+                <div class="card-body">
+                    <p class="text-muted mb-1">
+                        Available Balance
+                    </p>
+
+                    <h3 class="text-primary fw-bold">
+                        Ksh{{"%.2f"|format(balance)}}
+                    </h3>
+            
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Monthly Summary -->
+
+    <div class="card shadow-sm boarder-0 mb-4">
+
+        <div class="card-body">
+
+            <h5 class="fw-bold mb-3">This Month</h5>
+
+            <div class="row">
+
+                <div class="col-md-6">
+
+                    <p class="text-muted mb-1">
+                        Monthly Income
+                    </p>
+
+                    <h4 class="text-danger">
+                    Ksh{{"%.2f"|format(monthly_expenses)}} 
+                    </h4>
+
+                </div>
+
+            </div>
+
+        </div>
+    
+    </div>
+
+    <!-- Cash Flow Overview -->
+
+    <div class="card-shadow-sm border-0 mb-4">
+
+        <div class="card-body">
+
+            <h5 class="fw-bold mb-3">Cash Flow Overview</h5>
+
+            <di style="height: 320px;">
+
+                <canvas id="cashFlowChart"></canvas>
+            </di>
+        </div>
+    </div>
+
+    <!-- Savings overview -->
+
+    <div class="card shadow-sm border-0 mb-4">
+
+        <div class="card-body">
+
+            <h5 class="fw-bold mb-3">My Savings</h5>
+
+            <h3 class="text-seccess fw-bold">
+                Ksh{{"%.2f"|format(balance)}}
+            </h3>
+
+            <p class="text-muted mb-0">
+                You current savings based on income minus expenses.
+            </p>
+        </div>
+
+    </div>
+
+    <!-- Savings goal -->
+
+    <div class=""card shadow-sm border-0 mb-4>
+
+        <div class="card-body">
+
+            <h5 class="fw-bold mb-3">
+                My Savings Goal
+            </h5>
+
+            {% if savings_goals %}
+
+            {% for goal in savings_goal %}
+
+            <h6 class="fw-bold">{{goal.title}}</h6>
+
+            <p>Target: Ksh {{"%.2f"|format(goal.target_amount) }}</p>
+
+            <p>Amount Saved: Ksh {{"%.2f"|format(goal.amount_saved) }}</p>
+
+            <p>Amount Remaining: Ksh {{"%.2f"|format(goal.target_amount-goal.amount_saved) }}</p>
+
+            {% set percentage = (goal.amount_saved / goal.target_amount * 100)%}
+
+            <p>Progress:{{"%.1f"|format(percentage)}}%</p>
+
+            <div class="progress mb-3" style="height: 12px;">
+
+                <div 
+                    class="progress-bar bg-success" 
+                    role="progressbar" 
+                    style="width: {{ [percentage, 100]|min}};"
+                    aria-valuenow="{{percentage}}"
+                    aria-valuemin="0"
+                    aria-valuemax="100">
+                </div>
+            </div>
+
+            {% endfor %}
+
+            {% else %}
+
+            <p class="text-muted">
+                You have not created any savings goal yet.
+            </p>
+
+            {% endif %}
+
+            <a href="{{url_for('savings_goal')}}"
+                class="btn btn-outline-success btn-sm mt-2">
+                    Manage Savings Goal
+            </a>
+
+        </div>
+
+    </div>
+
+    <!-- Recent Transaction -->
+
+    <div class="card shadow-sm boarder-0">
+
+        <div class="card-body">
+
+            <div class="d-flex justify-content-between align-items-centre mb-3">
+
+                <h5 class="fw-bold mb-0">Recent Transactions</h5>
+
+                <a href="{{url_for('transactions')}}" class="btn btn-outline-primary btn-sm">
+                    View All
+                </a>
+
+            </div>
+
+            {% if recent_transactions %}
+
+            <div class="table-responsive">
+
+                <table class="table table-hover">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Title</th>
+                            <th>Category</th>
+                            <th>Type</th>
+                            <th>Amount</th>
+                            <th>Date</th>
+
+                        </tr>
+
+
+                    </thead>
+
+                    <tbody>
+
+                        {% for transaction in recent_transactions %}
+
+                        <tr>
+
+                            <td>{{transaction.title}}</td>
+                            <td>{{transaction.category}}</td>
+                            <td>{{transaction.transaction_type}}</td>
+                            <td>Ksh{{"%.2f"|format(transaction.amount)}}</td>
+                            <td>{{transaction.transaction_date}}</td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+            {% else %}
+
+            <p class="text-muted text-contre py-3">
+
+                No transaction yet. Start by adding your first transaction.
+
+            </p>
+
+            {% endif %}
+
+            <a href="{{url_for('add_transaction')}}"
+                class="btn btn-primary">
+                        + Add Transaction
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    const cashFlowCanvas = document.getElementById("cashFlowChart");
+
+    if (cashFlowCanvas) {
+        new Chart(cashFlowCanvas, {
+            type: "line",
+
+            data: {
+                labels: {{ chart_labels | tojson }},
+
+                datasets: [
+                    {
+                        label: "Income",
+                        data: {{ chart_income | tojson }},
+                        borderColor: "#16a678",
+                        tension: 0.3
+                    },
+                    {
+                        label: "Expenses",
+                        data: {{ chart_expenses | tojson }},
+                        borderColor: "#e05a67",
+                        tension: 0.3
+                    }
+                ]
+
+        },
+
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    }
+</script>
+
+{% endblock %}

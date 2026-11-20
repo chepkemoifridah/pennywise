@@ -1,0 +1,168 @@
+{% extends "base.html" %}
+
+{% block title %}Budgets | PennyWise{% endblock %}
+
+{% block content %}
+
+<div class="container py-4">
+
+    <div class="mb-4">
+        <h2 class="fw-bold">Budget Management</h2>
+        <p class="text-muted">
+            Plan your spending and stay in control of your money.
+        </p>
+    </div>
+
+    <div class="card shadow-sm border-0 mb-4">
+        <div class="card-body p-4">
+
+            <h5 class="fw-bold mb-3">Create or Update Budget</h5>
+
+            <form method="POST" action="{{ url_for('budgets') }}">
+
+                <div class="row g-3">
+
+                    <div class="col-md-4">
+                        <label class="form-label">Category</label>
+                        <select name="category" class="form-select" required>
+                            <option value="">Select category</option>
+                            <option value="Food">Food</option>
+                            <option value="Transport">Transport</option>
+                            <option value="Shopping">Shopping</option>
+                            <option value="Rent">Rent</option>
+                            <option value="Education">Education</option>
+                            <option value="Entertainment">Entertainment</option>
+                            <option value="Health">Health</option>
+                            <option value="Savings">Savings</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label class="form-label">Budget Amount (KSh)</label>
+                        <input type="number" name="amount"
+                               class="form-control"
+                               placeholder="Enter budget amount"
+                               min="0.01" step="0.01" required>
+                    </div>
+
+                    <div class="col-md-2">
+                        <label class="form-label">Month</label>
+                        <select name="month" class="form-select" required>
+                            <option value="1" {% if current_month == 1 %}selected{% endif %}>January</option>
+                            <option value="2" {% if current_month == 2 %}selected{% endif %}>February</option>
+                            <option value="3" {% if current_month == 3 %}selected{% endif %}>March</option>
+                            <option value="4" {% if current_month == 4 %}selected{% endif %}>April</option>
+                            <option value="5" {% if current_month == 5 %}selected{% endif %}>May</option>
+                            <option value="6" {% if current_month == 6 %}selected{% endif %}>June</option>
+                            <option value="7" {% if current_month == 7 %}selected{% endif %}>July</option>
+                            <option value="8" {% if current_month == 8 %}selected{% endif %}>August</option>
+                            <option value="9" {% if current_month == 9 %}selected{% endif %}>September</option>
+                            <option value="10" {% if current_month == 10 %}selected{% endif %}>October</option>
+                            <option value="11" {% if current_month == 11 %}selected{% endif %}>November</option>
+                            <option value="12" {% if current_month == 12 %}selected{% endif %}>December</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-2">
+                        <label class="form-label">Year</label>
+                        <input type="number" name="year"
+                               class="form-control"
+                               value="{{ current_year }}"
+                               min="2000" required>
+                    </div>
+
+                </div>
+
+                <button type="submit" class="btn btn-primary mt-4">
+                    Save Budget
+                </button>
+
+            </form>
+
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <h4 class="fw-bold">My Budgets</h4>
+    </div>
+
+    {% if budget_data %}
+
+    <div class="row g-3">
+
+        {% for item in budget_data %}
+
+        <div class="col-md-6 col-lg-4">
+
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body p-4">
+
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="fw-bold mb-0">{{ item.budget.category }}</h5>
+                        <span class="badge bg-primary">
+                            {{ item.budget.month }}/{{ item.budget.year }}
+                        </span>
+                    </div>
+
+                    <p class="text-muted mb-1">Budget Limit</p>
+                    <h4 class="fw-bold">
+                        KSh {{ "%.2f"|format(item.budget.amount) }}
+                    </h4>
+
+                    <div class="d-flex justify-content-between mt-3">
+                        <span class="text-muted">Spent</span>
+                        <span class="text-danger fw-bold">
+                            KSh {{ "%.2f"|format(item.spent) }}
+                        </span>
+                    </div>
+
+                    <div class="progress mt-2" style="height: 10px;">
+                        <div class="progress-bar
+                            {% if item.spent > item.budget.amount %}bg-danger
+                            {% elif item.percentage >= 80 %}bg-warning
+                            {% else %}bg-success{% endif %}"
+                            role="progressbar"
+                            style="width: {{ item.percentage }}%;"
+                            aria-valuenow="{{ item.percentage }}"
+                            aria-valuemin="0"
+                            aria-valuemax="100">
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between mt-3">
+                        <span class="text-muted">Remaining</span>
+                        <span class="fw-bold {% if item.remaining < 0 %}text-danger{% else %}text-success{% endif %}">
+                            KSh {{ "%.2f"|format(item.remaining) }}
+                        </span>
+                    </div>
+
+                    <p class="text-muted small mt-2 mb-0">
+                        {{ "%.1f"|format(item.percentage) }}% of budget used
+                    </p>
+
+                </div>
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+    {% else %}
+
+    <div class="card shadow-sm border-0">
+        <div class="card-body text-center py-5">
+            <h5 class="text-muted">No Budgets Yet</h5>
+            <p class="text-muted">
+                Create your first budget to start tracking your spending.
+            </p>
+        </div>
+    </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

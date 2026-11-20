@@ -1,0 +1,575 @@
+/* =================================
+   PENNYWISE - PREMIUM FINTECH DESIGN
+================================= */
+
+:root {
+    --navy: #101c35;
+    --navy-light: #1c2b49;
+    --green: #16a678;
+    --green-light: #e6f7f0;
+    --background: #f4f7fb;
+    --white: #ffffff;
+    --text: #1d2939;
+    --muted: #8993a4;
+    --border: #e9edf3;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: var(--background);
+    color: var(--text);
+}
+
+/* =================================
+   MAIN APPLICATION LAYOUT
+================================= */
+
+.app-shell {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* =================================
+   SIDEBAR
+================================= */
+
+.sidebar {
+    width: 255px;
+    min-height: 100vh;
+    background: var(--navy);
+    color: white;
+    padding: 30px 18px;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: white;
+    text-decoration: none;
+    font-size: 23px;
+    font-weight: 750;
+    margin-bottom: 55px;
+    padding-left: 8px;
+}
+
+.brand:hover {
+    color: white;
+}
+
+.brand-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    background: var(--green);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 21px;
+    flex-shrink: 0;
+}
+
+.sidebar-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: #8995aa;
+    margin: 0 0 16px 12px;
+}
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+
+.sidebar-link {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 13px 14px;
+    border-radius: 10px;
+    color: #b7c2d3;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.sidebar-link i {
+    font-size: 19px;
+}
+
+.sidebar-link:hover,
+.sidebar-link:focus {
+    background: var(--navy-light);
+    color: white;
+    transform: translateX(3px);
+}
+
+.sidebar-bottom {
+    margin-top: auto;
+    padding-top: 35px;
+}
+
+.logout-link:hover {
+    background: #3b2530;
+    color: #ff8d9b;
+}
+
+.sidebar-footer {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-top: 1px solid #293751;
+    margin-top: 25px;
+    padding: 22px 5px 0;
+}
+
+.sidebar-footer strong {
+    display: block;
+    font-size: 13px;
+    color: white;
+}
+
+.sidebar-footer small {
+    display: block;
+    font-size: 11px;
+    color: #9aa7bb;
+    margin-top: 3px;
+}
+
+.small-brand {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    font-size: 17px;
+}
+
+/* =================================
+   MAIN CONTENT
+================================= */
+
+.main-area {
+    flex: 1;
+    min-width: 0;
+}
+
+.topbar {
+    min-height: 90px;
+    background: white;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 38px;
+}
+
+.topbar-subtitle {
+    display: block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.4px;
+    color: var(--green);
+    margin-bottom: 5px;
+}
+
+.topbar h5 {
+    margin: 0;
+    font-size: 19px;
+    font-weight: 700;
+}
+
+.topbar-user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.topbar-user i {
+    font-size: 25px;
+    color: var(--green);
+}
+
+.page-content {
+    padding: 32px 38px;
+    max-width: 1600px;
+    margin: auto;
+}
+
+/* =================================
+   HEADINGS
+================================= */
+
+h1, h2, h3, h4, h5 {
+    color: var(--text);
+}
+
+.page-content h2 {
+    font-size: 26px;
+    font-weight: 750;
+}
+
+.page-content p.text-muted {
+    color: var(--muted) !important;
+}
+
+/* =================================
+   CARDS
+================================= */
+
+.card {
+    border: 1px solid var(--border) !important;
+    border-radius: 16px !important;
+    background: white;
+    box-shadow: 0 4px 18px rgba(16, 28, 53, 0.035) !important;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+    box-shadow: 0 9px 25px rgba(16, 28, 53, 0.07) !important;
+}
+
+.card-body {
+    padding: 24px;
+}
+
+/* =================================
+   BUTTONS
+================================= */
+
+.btn {
+    border-radius: 9px;
+    padding: 10px 17px;
+    font-weight: 600;
+    font-size: 13px;
+    transition: all 0.2s ease;
+}
+
+.btn-primary {
+    background: var(--green);
+    border-color: var(--green);
+}
+
+.btn-primary:hover {
+    background: #10845f;
+    border-color: #10845f;
+    transform: translateY(-1px);
+}
+
+.btn-warning {
+    background: #fff3d6;
+    color: #a66a00;
+    border-color: transparent;
+}
+
+.btn-danger {
+    background: #fff0f0;
+    color: #d83d4e;
+    border-color: transparent;
+}
+
+/* =================================
+   TABLES
+================================= */
+
+.table {
+    margin-bottom: 0;
+    vertical-align: middle;
+}
+
+.table thead th {
+    background: #f7f9fc;
+    color: #7d899b;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.7px;
+    font-weight: 700;
+    padding: 16px 13px;
+    border-bottom: 1px solid var(--border);
+}
+
+.table tbody td {
+    padding: 17px 13px;
+    font-size: 13px;
+    border-color: var(--border);
+}
+
+.table-hover tbody tr:hover {
+    background: #f8fbfa;
+}
+
+/* =================================
+   FORMS
+================================= */
+
+.form-label {
+    color: #46546a;
+    font-size: 13px;
+    font-weight: 650;
+    margin-bottom: 8px;
+}
+
+.form-control,
+.form-select {
+    min-height: 45px;
+    border: 1px solid #e0e6ee;
+    border-radius: 9px;
+    font-size: 13px;
+    padding: 10px 13px;
+}
+
+textarea.form-control {
+    min-height: 100px;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--green);
+    box-shadow: 0 0 0 3px rgba(22, 166, 120, 0.12);
+}
+
+/* =================================
+   BADGES AND PROGRESS
+================================= */
+
+.badge {
+    padding: 7px 11px;
+    border-radius: 7px;
+    font-weight: 600;
+}
+
+.progress {
+    background: #e9eef4;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    border-radius: 20px;
+}
+
+/* =================================
+   ALERTS
+================================= */
+
+.alert {
+    border: none;
+    border-radius: 10px;
+    font-size: 13px;
+}
+
+/* =================================
+   PUBLIC PAGES
+================================= */
+
+.public-area {
+    min-height: 100vh;
+    padding: 30px 18px;
+    background: var(--background);
+}
+
+.public-area .card {
+    max-width: 650px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* =================================
+   RESPONSIVE DESIGN
+================================= */
+
+@media (max-width: 900px) {
+
+    .sidebar {
+        width: 210px;
+        padding: 25px 12px;
+    }
+
+    .page-content {
+        padding: 25px 20px;
+    }
+
+    .topbar {
+        padding: 18px 22px;
+    }
+}
+
+@media (max-width: 650px) {
+
+    .app-shell {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        min-height: auto;
+        padding: 15px;
+    }
+
+    .brand {
+        margin-bottom: 20px;
+    }
+
+    .sidebar-label {
+        margin-top: 10px;
+    }
+
+    .sidebar-nav {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .sidebar-link {
+        padding: 11px 8px;
+        font-size: 12px;
+        gap: 8px;
+    }
+
+    .sidebar-bottom {
+        margin-top: 15px;
+        padding-top: 10px;
+    }
+
+    .sidebar-footer {
+        margin-top: 10px;
+        padding-top: 12px;
+    }
+
+    .topbar {
+        min-height: 75px;
+        padding: 15px;
+    }
+
+    .topbar-user span {
+        display: none;
+    }
+
+    .page-content {
+        padding: 20px 13px;
+    }
+}
+
+/* =================================
+   COLLAPSIBLE SIDEBAR
+================================= */
+
+.sidebar {
+    position: relative;
+    width: 255px;
+    transition: width 0.3s ease;
+}
+
+.sidebar-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 45px;
+}
+
+.sidebar-heading .brand {
+    margin-bottom: 0;
+}
+
+.sidebar-toggle {
+    width: 30px;
+    height: 30px;
+    border: none;
+    border-radius: 8px;
+    background: #263653;
+    color: white;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.sidebar-toggle:hover {
+    background: var(--green);
+}
+
+.sidebar-toggle i {
+    transition: transform 0.3s ease;
+}
+
+/* Collapsed state */
+
+.sidebar.is-collapsed {
+    width: 78px;
+}
+
+.sidebar.is-collapsed .brand {
+    justify-content: center;
+    padding-left: 0;
+}
+
+.sidebar.is-collapsed .brand-name,
+.sidebar.is-collapsed .sidebar-label,
+.sidebar.is-collapsed .sidebar-link span,
+.sidebar.is-collapsed .sidebar-footer > div:last-child {
+    display: none;
+}
+
+.sidebar.is-collapsed .sidebar-link {
+    justify-content: center;
+    padding: 13px 5px;
+}
+
+.sidebar.is-collapsed .sidebar-footer {
+    justify-content: center;
+}
+
+.sidebar.is-collapsed .sidebar-toggle i {
+    transform: rotate(180deg);
+}
+
+/* Expand when hovering */
+
+.sidebar.is-collapsed:hover {
+    width: 255px;
+}
+
+.sidebar.is-collapsed:hover .brand {
+    justify-content: flex-start;
+    padding-left: 8px;
+}
+
+.sidebar.is-collapsed:hover .brand-name,
+.sidebar.is-collapsed:hover .sidebar-label,
+.sidebar.is-collapsed:hover .sidebar-link span,
+.sidebar.is-collapsed:hover .sidebar-footer > div:last-child {
+    display: block;
+}
+
+.sidebar.is-collapsed:hover .sidebar-link {
+    justify-content: flex-start;
+    padding: 13px 14px;
+}
+
+.sidebar.is-collapsed:hover .sidebar-footer {
+    justify-content: flex-start;
+}
+
+.sidebar.is-collapsed:hover .sidebar-toggle i {
+    transform: rotate(0deg);
+}
+
+@media (max-width: 650px) {
+    .sidebar-heading {
+        margin-bottom: 20px;
+    }
+
+    .sidebar.is-collapsed,
+    .sidebar.is-collapsed:hover {
+        width: 100%;
+    }
+}
